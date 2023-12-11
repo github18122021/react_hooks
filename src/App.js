@@ -43,6 +43,7 @@ function App() {
      <h1>{state.count}</h1>
      <button onClick = {increase}>Increase</button>
      <button onClick = {decrease}>Decrease</button>
+     <button onClick = {() => dispatch({type: "reset"})}>Reset</button>
     </div>
   );
 }
