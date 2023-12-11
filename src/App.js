@@ -1,49 +1,58 @@
 import './App.css';
 import { useReducer } from 'react';
 
-// let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-// letters = letters.split('');
 
-// let initialState = {
-//   letter : letters[0],
-// }
+let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+let letter = letters[0];
 
 let initialState = {
-  count : 0,
+  letter: letters[0],
+  index: 0,
 }
 
 function reducer(state, action) {
   switch(action.type) {
-    case "increase": 
-      return {count : state.count + 1};
-    case "decrease":
-      return {count: state.count - 1};
-    case "reset":
-      return {count: 0};
-    default: 
-      return state;  
+    case "next": {
+      if(state.index === letters.length - 1) {
+        state.index = 0;
+        letter = letters[state.index];
+        return {letter: letter, index: state.index};
+      } else {
+        state.index += 1;
+        letter = letters[state.index];
+        return {letter: letter, index: state.index};
+      }
+    }
+    case "previous": {
+      if (state.index === 0) {
+        state.index = letters.length - 1;
+        letter = letters[state.index];
+        return {letter: letter, index: state.index};
+      } else {
+        state.index -= 1;
+        letter = letters[state.index];
+        console.log(letter);
+        return {letter: letter, index: state.index};
+      }
+    }
+    case "reset": {
+      return {letter: letters[0], ...state};
+    }
+    default: {
+      return state;
+    }
   }
 }
-
-
 function App() {
   let [state, dispatch] = useReducer(reducer, initialState);
-
-  function increase() {
-    // console.log("increase");
-    dispatch({type : "increase"});
-  }
-
-  function decrease() {
-    // console.log("decrease");
-    dispatch({type : "decrease"});
-  }
+  console.log(state);
   return (
     <div className="App">
-     <h1>{state.count}</h1>
-     <button onClick = {increase}>Increase</button>
-     <button onClick = {decrease}>Decrease</button>
-     <button onClick = {() => dispatch({type: "reset"})}>Reset</button>
+      <h1>{state.letter}</h1>
+      <button onClick={() => dispatch({type: "next"})}>Next Letter</button>
+      <button onClick={() => dispatch({type: "previous"})}>Previous Letter</button>
+      <button onClick={() => dispatch({type: "reset"})}>reset</button>
     </div>
   );
 }
