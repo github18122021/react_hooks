@@ -1,13 +1,6 @@
 import './App.css';
 import { useReducer } from 'react';
 
-// let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-// letters = letters.split('');
-
-// let initialState = {
-//   letter : letters[0],
-// }
-
 let initialState = {
   count : 0,
 }
