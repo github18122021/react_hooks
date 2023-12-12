@@ -37,7 +37,7 @@ function reducer(state, action) {
       }
     }
     case "reset": {
-      return {letter: letters[0], ...state};
+      return  {letter: 'A', index: 0};
     }
     default: {
       return state;
